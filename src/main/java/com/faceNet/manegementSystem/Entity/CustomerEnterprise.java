@@ -1,5 +1,7 @@
 package com.faceNet.manegementSystem.Entity;
 
+import com.faceNet.manegementSystem.Untils.DateUtil;
+import com.faceNet.manegementSystem.models.request.EnterpriseRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +26,7 @@ public class CustomerEnterprise {
     @Column(name = "annual_revenue")
     private String annualRevenue;
     @Column(name = "employee_size")
-    private String employeeSize;
+    private Integer employeeSize;
     private String note;
     @Column(name = "attachment_path")
     private String attachmentPath;
@@ -39,5 +41,17 @@ public class CustomerEnterprise {
     private Integer assignedStaff;
     private String source;
 
+    public CustomerEnterprise(EnterpriseRequest enterpriseRequest) {
+        this.businessName = enterpriseRequest.getBusinessName();
+        this.foundingDate = DateUtil.convertStringToDate(DateUtil.FULL_DATE_FORMAT,enterpriseRequest.getFoundingDate());
+        this.field = enterpriseRequest.getField();
+        this.annualRevenue = enterpriseRequest.getAnnualRevenue();
+        this.employeeSize = enterpriseRequest.getEmployeeSize();
+        this.note = enterpriseRequest.getBusinessName();
+        this.attachmentPath = enterpriseRequest.getBusinessName();
+        this.assignedStaff = enterpriseRequest.getAssignedStaff();
+        this.source = enterpriseRequest.getSource();
+
+    }
 }
 

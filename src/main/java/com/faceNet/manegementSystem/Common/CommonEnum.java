@@ -6,7 +6,12 @@ public enum CommonEnum {
     EXCEPTION_ERROR("internal.server.error", "DT.002.0.002"),
     INPUT_INVALID("input.valid", "DT.002.0.003"),
     FORBIDDEN("not.permission", "DT.002.0.005"),
+    INTERNAL_SERVER_ERROR("internal.error", "DT.002.0.0012"),
     BAD_REQUEST("bad.request", "DT.002.0.006"),
+    BUSINESS_NAME("business_name_not_null","DT.002.0.008"),
+    PHONE_NOT_NULL("phone_not_null","DT.002.0.009"),
+    EMAIL_NOT_NULL("email_not_null","DT.002.0.010"),
+    CUSTOMER_TYPE_NOT_NULL("customer_type_not_null","DT.002.0.011"),
     NOT_FOUND("not.found", "DT.002.0.007"),
     ;
 

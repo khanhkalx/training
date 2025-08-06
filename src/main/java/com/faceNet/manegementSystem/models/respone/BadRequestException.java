@@ -1,6 +1,11 @@
 package com.faceNet.manegementSystem.models.respone;
 
+import lombok.Getter;
+import lombok.Setter;
 
+
+@Getter
+@Setter
 public class BadRequestException extends RuntimeException {
 
     private String message;
@@ -21,36 +26,4 @@ public class BadRequestException extends RuntimeException {
         this.data = data;
     }
 
-    @Override
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getMessageKey() {
-        return messageKey;
-    }
-
-    public void setMessageKey(String messageKey) {
-        this.messageKey = messageKey;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
 }

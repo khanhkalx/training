@@ -17,8 +17,11 @@ public class ProductInterest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String category;
+    @Column(name = "product_name")
     private String productName;
+    @Column(name = "interest_status")
     private String interestStatus;
+    @Column(name = "interest_start_date")
     private Date interestStartDate;
     private String note;
 }

@@ -38,4 +38,11 @@ public class ValidExceptionHandling {
     public ResponseEntity<?> handleForbiddenExceptions(AccessDeniedException ex) {
         return ResponseEntity.status(403).body(new ErrorResponse(AppConstant.FORBIDDEN, CommonEnum.INPUT_INVALID.getKey(), CommonEnum.FORBIDDEN.getKey(), ex.getMessage(), CommonEnum.FORBIDDEN.getValue()));
     }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<?> handleGeneric(Exception ex) {
+        return ResponseEntity.status(500).body(new ErrorResponse(AppConstant.INTERNAL_SERVER_ERROR, CommonEnum.INPUT_INVALID.getKey(), CommonEnum.INTERNAL_SERVER_ERROR.getKey(), ex.getMessage(), CommonEnum.INTERNAL_SERVER_ERROR.getValue()));
+    }
+
 }

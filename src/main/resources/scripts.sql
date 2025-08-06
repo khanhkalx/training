@@ -5,55 +5,57 @@ BEGIN;
 
 CREATE TABLE IF NOT EXISTS public.customer_contact
 (
-    id integer NOT NULL DEFAULT nextval('"customerContact_id_seq"'::regclass),
-    phone character varying COLLATE pg_catalog."default",
-    email character varying COLLATE pg_catalog."default",
-    website character varying COLLATE pg_catalog."default",
-    address character varying COLLATE pg_catalog."default",
-    city character varying COLLATE pg_catalog."default",
-    district character varying COLLATE pg_catalog."default",
+    id bigint NOT NULL DEFAULT nextval('"customerContact_id_seq"'::regclass),
+    phone character varying(255) COLLATE pg_catalog."default",
+    email character varying(255) COLLATE pg_catalog."default",
+    website character varying(255) COLLATE pg_catalog."default",
+    address character varying(255) COLLATE pg_catalog."default",
+    city character varying(255) COLLATE pg_catalog."default",
+    district character varying(255) COLLATE pg_catalog."default",
+    code character varying COLLATE pg_catalog."default",
     CONSTRAINT "customerContact_pkey" PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS public.customer_enterprise
 (
-    id serial NOT NULL,
-    business_name character varying COLLATE pg_catalog."default",
+    id bigserial NOT NULL,
+    business_name character varying(255) COLLATE pg_catalog."default",
     founding_date timestamp with time zone,
-    field character varying COLLATE pg_catalog."default",
-    annual_revenue character varying COLLATE pg_catalog."default",
-    employee_size character varying COLLATE pg_catalog."default",
-    note character varying COLLATE pg_catalog."default",
-    attachment_path character varying COLLATE pg_catalog."default",
-    customer_contact serial NOT NULL,
-    product serial NOT NULL,
-    customer_lead serial NOT NULL,
+    field character varying(255) COLLATE pg_catalog."default",
+    annual_revenue character varying(255) COLLATE pg_catalog."default",
+    note character varying(255) COLLATE pg_catalog."default",
+    attachment_path character varying(255) COLLATE pg_catalog."default",
+    customer_contact serial,
+    product serial,
+    customer_lead serial,
     customer_type integer,
     assigned_staff integer,
-    source character varying COLLATE pg_catalog."default",
+    source character varying(255) COLLATE pg_catalog."default",
+    employee_size integer,
     CONSTRAINT customer_enterprise_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS public.customer_lead
 (
-    id serial NOT NULL,
-    full_name character varying COLLATE pg_catalog."default",
-    "position" character varying COLLATE pg_catalog."default",
-    phone character varying COLLATE pg_catalog."default",
-    email character varying COLLATE pg_catalog."default",
+    id bigserial NOT NULL,
+    full_name character varying(255) COLLATE pg_catalog."default",
+    "position" character varying(255) COLLATE pg_catalog."default",
+    phone character varying(255) COLLATE pg_catalog."default",
+    email character varying(255) COLLATE pg_catalog."default",
     date_of_birth character varying COLLATE pg_catalog."default",
-    note character varying COLLATE pg_catalog."default",
+    note character varying(255) COLLATE pg_catalog."default",
     CONSTRAINT customer_lead_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS public.product_interest
 (
-    id serial NOT NULL,
-    category character varying COLLATE pg_catalog."default",
+    id bigserial NOT NULL,
+    category character varying(255) COLLATE pg_catalog."default",
     productname character varying COLLATE pg_catalog."default",
-    interest_status character varying COLLATE pg_catalog."default",
+    interest_status character varying(255) COLLATE pg_catalog."default",
     interest_start_date character varying COLLATE pg_catalog."default",
-    note text COLLATE pg_catalog."default",
+    note character varying(255) COLLATE pg_catalog."default",
+    product_name character varying(255) COLLATE pg_catalog."default",
     CONSTRAINT product_interest_pkey PRIMARY KEY (id)
 );
 
