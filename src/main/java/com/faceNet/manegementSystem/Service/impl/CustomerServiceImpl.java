@@ -12,6 +12,7 @@ import com.faceNet.manegementSystem.models.Dto.CustomerDto;
 import com.faceNet.manegementSystem.models.request.CreateCustomer;
 import com.faceNet.manegementSystem.models.respone.BadRequestException;
 import com.faceNet.manegementSystem.models.respone.BaseResponse;
+import com.faceNet.manegementSystem.models.respone.PagedResponse;
 import com.faceNet.manegementSystem.models.respone.ResponseUtility;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -80,8 +81,12 @@ public class CustomerServiceImpl implements ICustomerService {
                     return new CustomerDto(ent, contact);
                 })
                 .collect(Collectors.toList());
-
-        return responseEntity.successResponse(dtoList);
+        PagedResponse<CustomerDto> pagedResponse = new PagedResponse<>(
+                dtoList,
+                customerEnterprises.getTotalPages(),
+                customerEnterprises.getTotalElements()
+        );
+        return responseEntity.successResponse(pagedResponse);
     }
 
     @Override
