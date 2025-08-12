@@ -14,4 +14,6 @@ public interface ICustomerService {
     ResponseEntity<BaseResponse> createCustomer(CreateCustomer customer);
 
     ByteArrayInputStream exportCustomer(List<Long> ids);
+
+    ResponseEntity<BaseResponse> getUser();
 }

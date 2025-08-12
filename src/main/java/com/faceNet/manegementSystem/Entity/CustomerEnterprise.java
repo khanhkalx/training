@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+/**
+ * @author Leo Nguyen
+ */
 @Entity
 @Table(name = "CUSTOMER_ENTERPRISE")
 @Data

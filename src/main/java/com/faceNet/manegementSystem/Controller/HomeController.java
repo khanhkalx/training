@@ -65,5 +65,10 @@ public class HomeController {
             }
         }
     }
+    @GetMapping("/user")
+    public ResponseEntity<?> getListUser(){
+        ResponseEntity<BaseResponse> res = customerService.getUser();
+        return res;
+    }
 
 }

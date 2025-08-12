@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author Leo Nguyen
+ */
 @Entity
 @Table(name = "CUSTOMER_CONTACT")
 @Data

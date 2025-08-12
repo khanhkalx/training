@@ -3,10 +3,7 @@ package com.faceNet.manegementSystem.Service.impl;
 import com.faceNet.manegementSystem.Common.CommonEnum;
 import com.faceNet.manegementSystem.Entity.CustomerContact;
 import com.faceNet.manegementSystem.Entity.CustomerEnterprise;
-import com.faceNet.manegementSystem.Repository.CustomerContactRepo;
-import com.faceNet.manegementSystem.Repository.CustomerEnterpriseRepo;
-import com.faceNet.manegementSystem.Repository.CustomerLeadRepo;
-import com.faceNet.manegementSystem.Repository.ProductInterestRepo;
+import com.faceNet.manegementSystem.Repository.*;
 import com.faceNet.manegementSystem.Service.ICustomerService;
 import com.faceNet.manegementSystem.models.Dto.CustomerDto;
 import com.faceNet.manegementSystem.models.request.CreateCustomer;
@@ -52,6 +49,8 @@ public class CustomerServiceImpl implements ICustomerService {
     private CustomerLeadRepo customerLeadRepo;
     @Autowired
     private ProductInterestRepo productInterestRepo;
+    @Autowired
+    private UserRepo userRepo;
 
     @Override
     public ResponseEntity<BaseResponse> getListCustomerEnterprise(Integer pageNumber, Integer pageSize) {
@@ -125,6 +124,11 @@ public class CustomerServiceImpl implements ICustomerService {
                 })
                 .toList();
         return writeToExcel(dtoList);
+    }
+
+    @Override
+    public ResponseEntity<BaseResponse> getUser() {
+        return responseEntity.successResponse(userRepo.getUser());
     }
 
     private ByteArrayInputStream writeToExcel(List<CustomerDto> customers) {
