@@ -2,6 +2,8 @@ package com.faceNet.manegementSystem.Controller;
 
 import com.faceNet.manegementSystem.Entity.CustomerEnterprise;
 import com.faceNet.manegementSystem.Service.ICustomerService;
+import com.faceNet.manegementSystem.Service.IOperationService;
+import com.faceNet.manegementSystem.models.Dto.QuotationRequestDto;
 import com.faceNet.manegementSystem.models.request.CreateCustomer;
 import com.faceNet.manegementSystem.models.request.ExportCustomerRequest;
 import com.faceNet.manegementSystem.models.respone.BaseResponse;
@@ -24,23 +26,22 @@ import java.util.List;
 public class HomeController {
 
     private final ICustomerService customerService;
-
-    public HomeController(ICustomerService customerService) {
+    private final IOperationService iOperationService;
+    public HomeController(ICustomerService customerService, IOperationService iOperationService) {
         this.customerService = customerService;
+        this.iOperationService = iOperationService;
     }
 
 
     @GetMapping("/customerEnterprise")
     public ResponseEntity<?> getListCustomer(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") Integer pageNumber,
                                              @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        ResponseEntity<BaseResponse> res = customerService.getListCustomerEnterprise(pageNumber, pageSize);
-        return res;
+        return customerService.getListCustomerEnterprise(pageNumber, pageSize);
     }
 
     @PostMapping("/customerEnterprise")
     public ResponseEntity<?> createCustomer(@RequestBody CreateCustomer customer) {
-        ResponseEntity<BaseResponse> res = customerService.createCustomer(customer);
-        return res;
+        return customerService.createCustomer(customer);
     }
 
     @GetMapping("/export")
@@ -67,8 +68,10 @@ public class HomeController {
     }
     @GetMapping("/user")
     public ResponseEntity<?> getListUser(){
-        ResponseEntity<BaseResponse> res = customerService.getUser();
-        return res;
+        return customerService.getUser();
     }
-
+    @PostMapping("/Quotation")
+    public ResponseEntity<?> createQuotation(QuotationRequestDto request){
+        return iOperationService.createQuotation(request);
+    }
 }

@@ -14,7 +14,6 @@ public class QuotationFeeItem {
     private Long quotationId;
     @Column(name = "fee_name")
     private String feeName;
-    @Column(length = 50)
     private String unit;
     private Double quantity;
     @Column(name = "unit_price")

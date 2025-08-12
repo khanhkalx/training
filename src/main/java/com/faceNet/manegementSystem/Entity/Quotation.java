@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * @author Leo Nguyen
+ */
 @Entity
 @Table(name = "QUOTATION")
 @Data
@@ -24,4 +27,13 @@ public class Quotation {
     private Long createdBy;
     private String description;
     private String status;
+
+    public void updateQuotation(Quotation quotation){
+        this.quotationCode = quotation.getQuotationCode();
+        this.customerId = quotation.getCustomerId();
+        this.contactPersonId = quotation.getContactPersonId();
+        this.createdDate = quotation.getCreatedDate();
+        this.description = quotation.getDescription();
+        this.status = quotation.getStatus();
+    }
 }
