@@ -1,5 +1,6 @@
 package com.faceNet.manegementSystem.Entity;
 
+import com.faceNet.manegementSystem.models.Dto.FileDto;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -29,5 +30,10 @@ public class QuotationAttachment {
     @Column(name = "uploaded_date")
     private LocalDateTime uploadedDate = LocalDateTime.now();
 
+    public QuotationAttachment(Long id, FileDto dto) {
+        this.quotationId = id;
+        this.fileName = dto.getFileName();
+        this.filePath = dto.getFilePath();
+    }
 }
 

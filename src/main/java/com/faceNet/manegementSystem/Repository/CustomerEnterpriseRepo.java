@@ -6,10 +6,15 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
+/**
+ * @author Leo Nguyen
+ */
 public interface CustomerEnterpriseRepo {
     Page<CustomerEnterprise> findAll(Pageable pageable);
 
     Boolean findById(Long id);
+
+    CustomerEnterprise selectById(Long id);
 
     CustomerEnterprise create(CustomerEnterprise customerEnterprise);
 

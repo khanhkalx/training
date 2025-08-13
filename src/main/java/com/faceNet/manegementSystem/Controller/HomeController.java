@@ -6,6 +6,7 @@ import com.faceNet.manegementSystem.Service.IOperationService;
 import com.faceNet.manegementSystem.models.Dto.QuotationRequestDto;
 import com.faceNet.manegementSystem.models.request.CreateCustomer;
 import com.faceNet.manegementSystem.models.request.ExportCustomerRequest;
+import com.faceNet.manegementSystem.models.request.QuotationRequest;
 import com.faceNet.manegementSystem.models.respone.BaseResponse;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -27,6 +28,7 @@ public class HomeController {
 
     private final ICustomerService customerService;
     private final IOperationService iOperationService;
+
     public HomeController(ICustomerService customerService, IOperationService iOperationService) {
         this.customerService = customerService;
         this.iOperationService = iOperationService;
@@ -66,12 +68,14 @@ public class HomeController {
             }
         }
     }
+
     @GetMapping("/user")
-    public ResponseEntity<?> getListUser(){
+    public ResponseEntity<?> getListUser() {
         return customerService.getUser();
     }
+
     @PostMapping("/Quotation")
-    public ResponseEntity<?> createQuotation(QuotationRequestDto request){
+    public ResponseEntity<?> createQuotation(@RequestBody QuotationRequest request) {
         return iOperationService.createQuotation(request);
     }
 }

@@ -1,20 +1,22 @@
 package com.faceNet.manegementSystem.models.request;
 
+import com.faceNet.manegementSystem.models.Dto.FeeDto;
+import com.faceNet.manegementSystem.models.Dto.FileDto;
+import com.faceNet.manegementSystem.models.Dto.ProductDto;
+import com.faceNet.manegementSystem.models.Dto.QuotationRequestDto;
 import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author Leo Nguyen
  */
 @Data
 public class QuotationRequest {
-    private Long customerId;
-    private Long contactPersonId;
-    private String quotationCode;
-    private LocalDateTime createdDate = LocalDateTime.now();
-    private Long createdBy;
-    private String description;
-    private String status;
+    private QuotationRequestDto quotationRequestDto;
+    private List<ProductDto> productDto;
+    private FeeDto feeDto;
+    private FileDto fileDto;
 }

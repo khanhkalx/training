@@ -1,11 +1,13 @@
 package com.faceNet.manegementSystem.Repository.impl;
 
+import com.faceNet.manegementSystem.Common.CommonEnum;
 import com.faceNet.manegementSystem.Entity.CustomerEnterprise;
 import com.faceNet.manegementSystem.Repository.CustomerEnterpriseRepo;
 import com.faceNet.manegementSystem.Repository.jpa.CustomerContactJpa;
 import com.faceNet.manegementSystem.Repository.jpa.CustomerEnterpriseJpa;
 import com.faceNet.manegementSystem.Repository.jpa.CustomerLeadJpa;
 import com.faceNet.manegementSystem.Repository.jpa.ProductInterestJpa;
+import com.faceNet.manegementSystem.models.respone.BadRequestException;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,6 +44,14 @@ public class CustomerEnterpriseRepoImpl implements CustomerEnterpriseRepo {
     @Override
     public Boolean findById(Long id) {
         return customerEnterpriseJpa.findById(id).isPresent();
+    }
+
+    @Override
+    public CustomerEnterprise selectById(Long id) {
+        return customerEnterpriseJpa.findById(id).orElseThrow(() -> new BadRequestException(
+                CommonEnum.NOT_FOUND.getKey(),
+                CommonEnum.NOT_FOUND.getKey(),
+                CommonEnum.NOT_FOUND.getValue()));
     }
 
     @Override

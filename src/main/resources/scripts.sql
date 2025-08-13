@@ -47,6 +47,16 @@ CREATE TABLE IF NOT EXISTS public.customer_lead
     CONSTRAINT customer_lead_pkey PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS public.face_user
+(
+    id integer NOT NULL DEFAULT nextval('user_id_seq'::regclass),
+    username character varying COLLATE pg_catalog."default",
+    full_name character varying COLLATE pg_catalog."default",
+    "position" character varying COLLATE pg_catalog."default",
+    brand character varying COLLATE pg_catalog."default",
+    CONSTRAINT user_pkey PRIMARY KEY (id)
+);
+
 CREATE TABLE IF NOT EXISTS public.product_interest
 (
     id bigserial NOT NULL,
@@ -57,6 +67,79 @@ CREATE TABLE IF NOT EXISTS public.product_interest
     note character varying(255) COLLATE pg_catalog."default",
     product_name character varying(255) COLLATE pg_catalog."default",
     CONSTRAINT product_interest_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS public.quotation
+(
+    id serial NOT NULL,
+    contact_person_id integer,
+    quotation_code character varying COLLATE pg_catalog."default",
+    created_date timestamp with time zone,
+    created_by integer,
+    description character varying COLLATE pg_catalog."default",
+    status character varying COLLATE pg_catalog."default",
+    CONSTRAINT quotation_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS public.quotation_attachment
+(
+    id bigserial NOT NULL,
+    quotation_id bigint,
+    file_name character varying(255) COLLATE pg_catalog."default",
+    file_path text COLLATE pg_catalog."default",
+    file_type character varying(50) COLLATE pg_catalog."default",
+    uploaded_by bigint,
+    uploaded_date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT quotation_attachment_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS public.quotation_fee_item
+(
+    id serial NOT NULL,
+    quotation_id integer,
+    fee_name character varying COLLATE pg_catalog."default",
+    unit character varying COLLATE pg_catalog."default",
+    quantity numeric,
+    unit_price numeric,
+    discount_percent numeric,
+    vat_percent numeric,
+    total_amount numeric,
+    CONSTRAINT quotation_fee_item_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS public.quotation_item
+(
+    id serial NOT NULL,
+    quotation_id integer,
+    product_id integer,
+    quantity integer,
+    unit_price double precision,
+    discount_percent double precision,
+    discount_amount double precision,
+    vat_percent double precision,
+    vat_amount double precision,
+    total_amount double precision,
+    CONSTRAINT quotation_item_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS public.quotation_note
+(
+    id bigserial NOT NULL,
+    quotation_id bigint,
+    note_content text COLLATE pg_catalog."default",
+    created_by bigint,
+    created_date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT quotation_note_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS public.quotation_timeline
+(
+    id bigserial NOT NULL,
+    quotation_id bigint,
+    timeline_description text COLLATE pg_catalog."default",
+    start_date date,
+    end_date date,
+    CONSTRAINT quotation_timeline_pkey PRIMARY KEY (id)
 );
 
 ALTER TABLE IF EXISTS public.customer_enterprise
@@ -81,5 +164,57 @@ ALTER TABLE IF EXISTS public.customer_enterprise
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
+
+
+ALTER TABLE IF EXISTS public.quotation
+    ADD CONSTRAINT fk_customer_contact FOREIGN KEY (contact_person_id)
+    REFERENCES public.customer_contact (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS public.quotation_attachment
+    ADD CONSTRAINT fk_quotation_attachment FOREIGN KEY (quotation_id)
+    REFERENCES public.quotation (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION;
+
+
+ALTER TABLE IF EXISTS public.quotation_fee_item
+    ADD CONSTRAINT fk_quotation_fee FOREIGN KEY (quotation_id)
+    REFERENCES public.quotation (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION;
+
+
+ALTER TABLE IF EXISTS public.quotation_item
+    ADD CONSTRAINT fk_product FOREIGN KEY (product_id)
+    REFERENCES public.product_interest (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS public.quotation_item
+    ADD CONSTRAINT fk_quotation FOREIGN KEY (quotation_id)
+    REFERENCES public.quotation (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS public.quotation_note
+    ADD CONSTRAINT fk_quotation_note FOREIGN KEY (quotation_id)
+    REFERENCES public.quotation (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION;
+
+
+ALTER TABLE IF EXISTS public.quotation_timeline
+    ADD CONSTRAINT fk_quotation_timeline FOREIGN KEY (quotation_id)
+    REFERENCES public.quotation (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION;
 
 END;

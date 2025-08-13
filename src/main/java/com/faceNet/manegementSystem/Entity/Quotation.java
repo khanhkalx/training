@@ -1,5 +1,6 @@
 package com.faceNet.manegementSystem.Entity;
 
+import com.faceNet.manegementSystem.models.Dto.QuotationRequestDto;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -36,4 +37,14 @@ public class Quotation {
         this.description = quotation.getDescription();
         this.status = quotation.getStatus();
     }
+
+    public Quotation(QuotationRequestDto dto){
+        this.customerId = dto.getCustomerLead();
+        this.contactPersonId = dto.getCustomerEnterprise();
+        this.quotationCode = dto.getQuotationCode();
+        this.description = dto.getDescription();
+        this.createdDate = dto.getCreatedDate();
+        this.createdBy = dto.getCreatedBy();
+    }
+
 }
