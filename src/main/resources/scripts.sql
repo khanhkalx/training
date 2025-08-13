@@ -78,6 +78,7 @@ CREATE TABLE IF NOT EXISTS public.quotation
     created_by integer,
     description character varying COLLATE pg_catalog."default",
     status character varying COLLATE pg_catalog."default",
+    customer_id integer,
     CONSTRAINT quotation_pkey PRIMARY KEY (id)
 );
 
@@ -167,8 +168,16 @@ ALTER TABLE IF EXISTS public.customer_enterprise
 
 
 ALTER TABLE IF EXISTS public.quotation
-    ADD CONSTRAINT fk_customer_contact FOREIGN KEY (contact_person_id)
-    REFERENCES public.customer_contact (id) MATCH SIMPLE
+    ADD CONSTRAINT fk_customer_enter FOREIGN KEY (contact_person_id)
+    REFERENCES public.customer_enterprise (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS public.quotation
+    ADD CONSTRAINT fk_customer_lead FOREIGN KEY (customer_id)
+    REFERENCES public.customer_lead (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
